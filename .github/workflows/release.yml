@@ -12,6 +12,11 @@ jobs:
     if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v2
+      - name: get version information
+        run: |
+          echo ${{ github.event.pull_request.title }}
+          echo "##[set-output name=version;]$(echo '${{ github.event.pull_request.title }}' | sed -n 's/Release\///p')"
+          echo ${{ steps.extract_version_name.outputs.version }}
       - name: PR merge
         run: echo The PR was merged
       - name: Create Release Tag
