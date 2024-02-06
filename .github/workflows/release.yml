@@ -5,6 +5,7 @@ on:
       - closed
     branches:
       - main
+permissions: {}
 jobs:
   if_merged:
     runs-on: ubuntu-latest
