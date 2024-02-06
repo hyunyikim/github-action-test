@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: PR merge
         run: echo The PR was merged
-      - uses: actions/create-release@v1
-        name: Create Release Tag
+      - name: Create Release Tag
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
