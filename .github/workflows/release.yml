@@ -18,6 +18,7 @@ jobs:
           echo "${{ github.event.pull_request.title }}" | egrep -o 'Release/([^[:space:]]+)' | sed 's/Release\///'
           echo "##[set-output name=version;]$(echo '${{ github.event.pull_request.title }}' | egrep -o '[0-9]{1,8}')"
           echo ${{ steps.extract_version_name.outputs.version }}
+        id: extract_version_name
       - name: print version info
         run: echo ${{ steps.extract_version_name.outputs.version }}
       - name: PR merge
