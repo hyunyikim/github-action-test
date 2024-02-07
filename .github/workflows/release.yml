@@ -15,18 +15,13 @@ jobs:
       - name: get version information
         run: |
           echo ${{ github.event.pull_request.title }}
-          echo "${{ github.event.pull_request.title }}" | egrep -o 'Release/([^[:space:]]+)' | sed 's/Release\///'
           echo "##[set-output name=version;]$(echo '${{ github.event.pull_request.title }}' | egrep -o 'Release/([^[:space:]]+)' | sed 's/Release\///')"
           echo ${{ steps.extract_version_name.outputs.version }}
         id: extract_version_name
-      - name: print version info
-        run: echo ${{ steps.extract_version_name.outputs.version }}
-      - name: PR merge
-        run: echo The PR was merged
       - name: Create Release Tag
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.extract_version_name.outputs.version }}
-          release_name: ${{ steps.extract_version_name.outputs.version }}
+          tag_name: v${{ steps.extract_version_name.outputs.version }}
+          release_name: v${{ steps.extract_version_name.outputs.version }}
